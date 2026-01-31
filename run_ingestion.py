@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 # Add the backend directory to sys.path
 sys.path.append(os.path.join(os.path.dirname(__file__), "backend"))
 
-from app.scrapers.python_org import PythonOrgScraper
+from app.scrapers.computrabajo import CompuTrabajoScraper
 from app.core.database import SessionLocal
 from app.services.ingestion import IngestionService
 
@@ -14,8 +14,8 @@ async def run_pipeline():
     print("--- Starting Pipeline ---")
     
     # 1. Scrape
-    print("[1/2] Scraping Python.org...")
-    scraper = PythonOrgScraper()
+    print("[1/2] Scraping CompuTrabajo...")
+    scraper = CompuTrabajoScraper()
     scraped_jobs = await scraper.scrape()
     print(f"Found {len(scraped_jobs)} raw jobs.")
 

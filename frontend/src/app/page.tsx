@@ -5,7 +5,7 @@ async function getJobs(): Promise<Job[]> {
   // Fetching data from the backend API
   // Using 'no-store' to ensure we always get fresh data (SSR behavior)
   try {
-    const res = await fetch("http://127.0.0.1:8000/jobs/", {
+    const res = await fetch("http://127.0.0.1:8000/jobs/?limit=100", {
       cache: "no-store"
     });
 
@@ -22,6 +22,9 @@ async function getJobs(): Promise<Job[]> {
 
 export default async function Home() {
   const jobs = await getJobs();
+
+  // Sort jobs by ID descending (newest first)
+  jobs.sort((a, b) => b.id - a.id);
 
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
